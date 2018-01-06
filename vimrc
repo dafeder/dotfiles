@@ -30,3 +30,4 @@ nnoremap <C-L> :nohl<CR><C-L>
 
 :command -nargs=1 CS colorscheme <args>
 
+set viminfo+=n~/.vim/viminfo
