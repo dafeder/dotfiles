@@ -13,10 +13,12 @@ floating_modifier $mod
 
 # kill focused window
 bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start launcher
-bindsym $mod+d exec xfce4-popup-whiskermenu
+bindsym $mod+d exec i3-dmenu-desktop
 bindsym $mod+Shift+d exec dmenu_run
+bindsym $mod+space exec xfce4-popup-whiskermenu
 
 # change focus
 bindsym $mod+j focus left
@@ -154,8 +156,9 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym Shift+$mod+bracketright move workspace to output right
 bindsym Shift+$mod+bracketleft move workspace to output left
 
-# Terminal shortcut
+# Application shortcuts
 bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+b exec google-chrome
 
 # Chrome popups
 for_window [window_role="pop-up"] floating enable
