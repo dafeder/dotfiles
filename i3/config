@@ -73,7 +73,8 @@ set $workspace2 "2"
 set $workspace3 "3"
 set $workspace4 "4"
 set $workspace5 "5"
-set $workspace6 "6"
+set $workspace6 "6"
+set $workspace7 "7"
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -82,7 +83,7 @@ bindsym $mod+3 workspace $workspace3
 bindsym $mod+4 workspace $workspace4
 bindsym $mod+5 workspace $workspace5
 bindsym $mod+6 workspace $workspace6
-bindsym $mod+7 workspace 7
+bindsym $mod+7 workspace $workspace7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
@@ -94,7 +95,7 @@ bindsym $mod+Shift+3 move container to workspace $workspace3
 bindsym $mod+Shift+4 move container to workspace $workspace4
 bindsym $mod+Shift+5 move container to workspace $workspace5
 bindsym $mod+Shift+6 move container to workspace $workspace6
-bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+7 move container to workspace $workspace7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
@@ -149,6 +150,10 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# Move workspace to monitor
+bindsym Shift+$mod+bracketright move workspace to output right
+bindsym Shift+$mod+bracketleft move workspace to output left
+
 # Terminal shortcut
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -164,6 +169,7 @@ exec --no-startup-id $HOME/.pia_manager/pia_manager/run.sh
 exec --no-startup-id compton
 exec --no-startup-id nitrogen --restore
 
-
-exec --no-startup-id i3-msg '$workspace2; i3-sensible-terminal'
-
+assign [class="Pidgin"] $workspace6
+assign [class="Signal"] $workspace6
+assign [class="Slack"] $workspace4
+assign [class="wavebox"] $workspace5
