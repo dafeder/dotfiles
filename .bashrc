@@ -35,9 +35,6 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# export GITAWAREPROMPT=~/.bash/git-aware-prompt
-# source "${GITAWAREPROMPT}/main.sh"
-
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
@@ -92,6 +89,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # tmux colors
 alias tmux="TERM=screen-256color-bce tmux"
 
+# Reset panel in xfce4
+alias xp='xfce4-panel -r'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -108,11 +107,6 @@ export PATH=~/.config/composer/vendor/bin:$PATH
 
 export AHOY_CMD_PROXY=DOCKER
 
-# export DOCKER_TLS_VERIFY="1"
-# export DOCKER_HOST="tcp://192.168.99.100:2376"
-# export DOCKER_CERT_PATH="/home/dfeder/.docker/machine/machines/default"
-# export DOCKER_MACHINE_NAME="default"
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
@@ -120,3 +114,6 @@ export NVM_DIR="$HOME/.nvm"
 if [ -f ~/bin/git-completion.bash ]; then
   . ~/bin/git-completion.bash
 fi
+
+export EDITOR='vim'
+export VISUAL='vim'
