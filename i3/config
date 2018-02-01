@@ -15,6 +15,9 @@ floating_modifier $mod
 bindsym $mod+Shift+q kill
 bindsym $mod+q kill
 
+# reload xfce panels
+bindsym $mod+Shift+x exec xfce4-panel -r
+
 # start launcher
 bindsym $mod+d exec i3-dmenu-desktop
 bindsym $mod+Shift+d exec dmenu_run
@@ -175,3 +178,4 @@ assign [class="Pidgin"] $workspace6
 assign [class="Signal"] $workspace6
 assign [class="Slack"] $workspace4
 assign [class="wavebox"] $workspace5
+assign [class="zoom"] $workspace7
