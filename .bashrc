@@ -119,4 +119,7 @@ fi
 
 export EDITOR='vim'
 export VISUAL='vim'
+# export PAGER='pless'
+export NNN_COPIER="~/.local/bin/copier.sh"
+
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
