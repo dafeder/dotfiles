@@ -184,6 +184,7 @@ assign [class="Slack"] $workspace4
 assign [class="wavebox"] $workspace5
 assign [class="zoom"] $workspace7
 assign [class="Atom"] $workspace3
+assign [class="Code"] $workspace3
 
 client.focused #586e75 #586e75 #fdf6e3 #268bd2
 client.focused_inactive #073642 #073642 #93a1a1 #002b36
