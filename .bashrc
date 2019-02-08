@@ -101,13 +101,15 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
+else
+  echo 'no posix'
 fi
 
-export PATH=~/.config/composer/vendor/bin:$PATH
+export PATH=~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/.local/bin:$PATH
 
-export AHOY_CMD_PROXY=DOCKER
+export DRUSH_LAUNCHER_FALLBACK=~/.composer/vendor/bin/drush
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
