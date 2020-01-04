@@ -75,9 +75,10 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
+# some more aliases
 alias la='ls -lah'
 alias cat='pygmentize -g'
+alias clip='xclip -selection clipboard'
 
 eval "$(hub alias -s)"
 alias l='ls -afh'
@@ -85,12 +86,6 @@ alias l='ls -afh'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# tmux colors
-alias tmux="TERM=screen-256color-bce tmux"
-
-# Reset panel in xfce4
-alias xp='xfce4-panel -r'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -108,6 +103,7 @@ fi
 export PATH=~/.composer/vendor/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=~/.local/bin:$PATH
+export PATH=$HOME/.gem/ruby/2.5.0/bin:$PATH
 
 export DRUSH_LAUNCHER_FALLBACK=~/.composer/vendor/bin/drush
 
@@ -121,6 +117,7 @@ fi
 
 export EDITOR='vim'
 export VISUAL='vim'
+export DRUPAL_VERSION='V8'
 # export PAGER='pless'
 export NNN_COPIER="~/.local/bin/copier.sh"
 

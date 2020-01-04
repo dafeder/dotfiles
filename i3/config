@@ -1,4 +1,4 @@
-# i3 config file (v4)
+# i3 config fime (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
@@ -15,7 +15,6 @@ floating_modifier $mod
 bindsym $mod+q kill
 bindsym --release button2 kill
 
-
 # reload xfce panels
 bindsym $mod+Shift+x exec xfce4-panel -r
 
@@ -28,23 +27,14 @@ bindsym $mod+d exec i3-dmenu-desktop
 bindsym $mod+Shift+d exec dmenu_run
 bindsym $mod+space exec xfce4-popup-whiskermenu
 
-# change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+# lock screen
+bindsym $mod++l exec xflock4
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -78,13 +68,12 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $workspace1 "1"
+set $workspace1 "1"
 set $workspace2 "2"
 set $workspace3 "3"
 set $workspace4 "4"
 set $workspace5 "5"
-set $workspace6 "6"
-set $workspace7 "7"
+set $workspace6 "6"
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -93,7 +82,7 @@ bindsym $mod+3 workspace $workspace3
 bindsym $mod+4 workspace $workspace4
 bindsym $mod+5 workspace $workspace5
 bindsym $mod+6 workspace $workspace6
-bindsym $mod+7 workspace $workspace7
+bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
@@ -105,7 +94,7 @@ bindsym $mod+Shift+3 move container to workspace $workspace3
 bindsym $mod+Shift+4 move container to workspace $workspace4
 bindsym $mod+Shift+5 move container to workspace $workspace5
 bindsym $mod+Shift+6 move container to workspace $workspace6
-bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
@@ -130,10 +119,10 @@ mode "resize" {
         bindsym semicolon resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -154,15 +143,16 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 # Touchpad controls - maybe not needed with XFCE?
 # bindsym XF86TouchpadToggle exec /home/dfeder/bin/toggletouchpad.sh # toggle touchpad
 
-# Media player controls
 bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Move workspace to monitor
-bindsym Shift+$mod+bracketright move workspace to output right
-bindsym Shift+$mod+bracketleft move workspace to output left
+# bindsym Shift+$mod+bracketright move workspace to output right
+# bindsym Shift+$mod+bracketleft move workspace to output left
+bindsym Shift+$mod+bracketright move workspace to output up
+bindsym Shift+$mod+bracketleft move workspace to output down
 
 # Application shortcuts
 bindsym $mod+Return exec i3-sensible-terminal
@@ -182,11 +172,11 @@ for_window [window_type="menu"] floating enable
 exec --no-startup-id compton
 exec --no-startup-id nitrogen --restore
 
-assign [class="Pidgin"] $workspace6
+assign [class="Pidgin"] $workspace4
 assign [class="Signal"] $workspace6
 assign [class="Slack"] $workspace4
 assign [class="wavebox"] $workspace5
-assign [class="zoom"] $workspace7
+assign [class="zoom"] $workspace6
 assign [class="Atom"] $workspace3
 assign [class="Code"] $workspace3
 
