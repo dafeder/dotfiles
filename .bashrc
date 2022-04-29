@@ -35,26 +35,39 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
+# set a fancy prompt (non-color, unless we know we "want" color)
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+# Set up git-aware-prompt
+PROMPT_COMMAND='echo -ne "\033]0;${USER}:${PWD/#$HOME/\~}\007"'
+export GITAWAREPROMPT=~/.bash/git-aware-prompt
+source "${GITAWAREPROMPT}/main.sh"
+
+if [ "$color_prompt" = yes ]; then
+    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1="\n\[\033[36m\]\u:\[\033[m\]\[\033[33;1m\]\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\n\$ "
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}:${PWD/#$HOME/\~}\007"'
-    export GITAWAREPROMPT=~/.bash/git-aware-prompt
-    source "${GITAWAREPROMPT}/main.sh"
-    PS1="\n\[\033[36m\]\u:\[\033[m\]\[\033[33;1m\]\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\n\$ "
-
-    show_command_in_title_bar()
-    {
-        case "$BASH_COMMAND" in
-            *\033]0*)
-                ;;
-            *)
-                # echo -ne "\033]0;${USER}@${HOSTNAME}: ${BASH_COMMAND}\007"
-                echo -ne "\033]0;${BASH_COMMAND}\007"
-                ;;
-        esac
-    }
-    trap show_command_in_title_bar DEBUG
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
 *)
     ;;
@@ -73,19 +86,25 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more aliases
-alias la='ls -lah'
-alias cat='pygmentize -g'
-alias clip='xclip -selection clipboard'
-
-eval "$(hub alias -s)"
-alias l='ls -afh'
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -96,29 +115,20 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
-else
-  echo 'no posix'
 fi
 
-export PATH=~/.composer/vendor/bin:$PATH
-export PATH=/usr/local/bin:$PATH
+# Drush customizations
+source /home/dfeder/.drush/drush.bashrc
+source /home/dfeder/.drush/drush.complete.sh
+
+# Path additions
 export PATH=~/.local/bin:$PATH
-export PATH=$HOME/.gem/ruby/2.5.0/bin:$PATH
+export PATH=~/.config/composer/vendor/bin:$PATH
+export PATH=~/.local/npm-packages/bin:$PATH
 
-export DRUSH_LAUNCHER_FALLBACK=~/.composer/vendor/bin/drush
+# Set default editor and vi mode
+export EDITOR=vim
+set -o vi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-
-# Git tab completion
-if [ -f ~/bin/git-completion.bash ]; then
-  . ~/bin/git-completion.bash
-fi
-
-export EDITOR='vim'
-export VISUAL='vim'
-export DRUPAL_VERSION='V8'
-# export PAGER='pless'
-export NNN_COPIER="~/.local/bin/copier.sh"
-
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Additional environment variables
+export VIMINIT="source ~/.config/vimrc"
