@@ -1,0 +1,18 @@
+i3-wm.binding.exit_app: q
+i3-wm.binding.take_left: bracketleft
+i3-wm.binding.take_right: bracketright
+i3-wm.binding.browser: b
+i3-wm.binding.bluetooth: Ctrl+b
+i3-wm.binding.files: Shift+Return
+i3-wm.gaps.focus_follows_mouse: yes
+i3-wm.font: pango:Ubuntu 11
+i3-wm.bar.font: pango:Ubuntu 11
+i3xrocks.value.font: Ubuntu 11
+i3xrocks.date.format2: %h %d | %I:%M%P
+rofi.font: pango:Ubuntu 11
+gnome.terminal.font: Source Code Pro 10
+i3-wm.workspace.01.name: 1:1 
+i3-wm.workspace.02.name: 2:2 
+i3-wm.workspace.03.name: 3:3  
+i3-wm.workspace.04.name: 4:4 
+i3-wm.workspace.05.name: 5:5 
