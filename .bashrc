@@ -1,124 +1,17 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+#
+# ~/.bashrc
+#
 
 # If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+[[ $- != *i* ]] && return
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias ll='ls -la'
+alias vim='nvim'
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+export GITAWAREPROMPT=~/.bash/git-aware-prompt
+source "${GITAWAREPROMPT}/main.sh"
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+PS1="\n\[\033[36m\]\u:\[\033[m\]\[\033[33;1m\]\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\n\$ "
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}:${PWD/#$HOME/\~}\007"'
-    export GITAWAREPROMPT=~/.bash/git-aware-prompt
-    source "${GITAWAREPROMPT}/main.sh"
-    PS1="\n\[\033[36m\]\u:\[\033[m\]\[\033[33;1m\]\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\n\$ "
-
-    show_command_in_title_bar()
-    {
-        case "$BASH_COMMAND" in
-            *\033]0*)
-                ;;
-            *)
-                # echo -ne "\033]0;${USER}@${HOSTNAME}: ${BASH_COMMAND}\007"
-                echo -ne "\033]0;${BASH_COMMAND}\007"
-                ;;
-        esac
-    }
-    trap show_command_in_title_bar DEBUG
-    ;;
-*)
-    ;;
-esac
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more aliases
-alias la='ls -lah'
-alias cat='pygmentize -g'
-alias clip='xclip -selection clipboard'
-
-eval "$(hub alias -s)"
-alias l='ls -afh'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-else
-  echo 'no posix'
-fi
-
-export PATH=~/.composer/vendor/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=~/.local/bin:$PATH
-export PATH=$HOME/.gem/ruby/2.5.0/bin:$PATH
-
-export DRUSH_LAUNCHER_FALLBACK=~/.composer/vendor/bin/drush
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-
-# Git tab completion
-if [ -f ~/bin/git-completion.bash ]; then
-  . ~/bin/git-completion.bash
-fi
-
-export EDITOR='vim'
-export VISUAL='vim'
-export DRUPAL_VERSION='V8'
-# export PAGER='pless'
-export NNN_COPIER="~/.local/bin/copier.sh"
-
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
