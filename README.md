@@ -23,3 +23,7 @@ Should have taken better notes while in progress, but to best of my memory:
 ## Permissions
 
 1. `sudo usermod -aG docker $USER`
+
+## Scanner
+
+`sudo brsaneconfig4 -a name=DCP-7065DN model=DCP-7065DN ip=192.168.1.205`
